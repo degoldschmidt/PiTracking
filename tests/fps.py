@@ -23,6 +23,8 @@ camera = PiCamera()
 camera.resolution = (1920, 1080)
 camera.framerate = 30
 rawCapture = PiRGBArray(camera, size=(1920, 1080))
+stream = camera.capture_continuous(rawCapture, format="bgr",
+	use_video_port=True)
 
 # allow the camera to warmup and start the FPS counter
 print("[INFO] sampling frames from `picamera` module...")
