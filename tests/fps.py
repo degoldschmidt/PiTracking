@@ -15,7 +15,8 @@ ap.add_argument("-n", "--num-frames", type=int, default=100,
 	help="# of frames to loop over for FPS test")
 ap.add_argument("-d", "--display", type=int, default=-1,
 	help="Whether or not frames should be displayed")
-args = vars(ap.parse_args())    
+args = vars(ap.parse_args()) 
+print(args)
     
 # initialize the camera and grab a reference to the raw camera capture
 camera = PiCamera()
@@ -30,7 +31,7 @@ fps = FPS().start()
  
 # loop over some frames
 for (i, f) in enumerate(stream):
-	# grab the frame from the stream and resize it to have a maximum
+    # grab the frame from the stream and resize it to have a maximum
 	# width of 400 pixels
 	frame = f.array
 	frame = imutils.resize(frame, width=400)
@@ -44,11 +45,9 @@ for (i, f) in enumerate(stream):
 	# the FPS counter
 	rawCapture.truncate(0)
 	fps.update()
- 
 	# check to see if the desired number of frames have been reached
     if i == args["num_frames"]:
         break
- 
 # stop the timer and display FPS information
 fps.stop()
 print("[INFO] elasped time: {:.2f}".format(fps.elapsed()))
