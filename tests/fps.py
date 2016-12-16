@@ -8,14 +8,14 @@ import argparse
 import imutils
 import time
 import cv2
- 
+
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-n", "--num-frames", type=int, default=100,
 	help="# of frames to loop over for FPS test")
 ap.add_argument("-d", "--display", type=int, default=-1,
 	help="Whether or not frames should be displayed")
-args = vars(ap.parse_args()) 
+args = vars(ap.parse_args())
 print(args)
 
 # initialize the camera and grab a reference to the raw camera capture
@@ -23,31 +23,31 @@ camera = PiCamera()
 camera.resolution = (1920, 1080)
 camera.framerate = 30
 rawCapture = PiRGBArray(camera, size=(1920, 1080))
- 
+
 # allow the camera to warmup and start the FPS counter
 print("[INFO] sampling frames from `picamera` module...")
 time.sleep(2.0)
 fps = FPS().start()
- 
+
 # loop over some frames
 for (i, f) in enumerate(stream):
-    # grab the frame from the stream and resize it to have a maximum
+	# grab the frame from the stream and resize it to have a maximum
 	# width of 400 pixels
 	frame = f.array
 	frame = imutils.resize(frame, width=400)
- 
+
 	# check to see if the frame should be displayed to our screen
 	if args["display"] > 0:
 		cv2.imshow("Frame", frame)
 		key = cv2.waitKey(1) & 0xFF
- 
+
 	# clear the stream in preparation for the next frame and update
 	# the FPS counter
 	rawCapture.truncate(0)
 	fps.update()
 	# check to see if the desired number of frames have been reached
-    if i == args["num_frames"]:
-        break
+	if i == args["num_frames"]:
+		break
 # stop the timer and display FPS information
 fps.stop()
 print("[INFO] elasped time: {:.2f}".format(fps.elapsed()))
