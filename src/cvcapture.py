@@ -5,7 +5,7 @@ class CVVideoCapture:
     """ The CVVideoCapture class creates a threaded OpenCV video capture.
     AUTHOR:  Dennis Goldschmidt
     CREATED: 16/12/2016
-    UPDATED: 
+    UPDATED:
     """
 
     def __init__(self, source=0, verbose=False):
@@ -36,7 +36,7 @@ class CVVideoCapture:
         return self
 
     def stop(self):
-        """ stops video capture """
+        """ stop video capture """
         self.stopping = True
 
     def update(self):
@@ -61,8 +61,7 @@ for i in range(_NFRAMES):
     key = cv2.waitKey(1)
     now = time.time()-start_t
     #print("Frame:", i, "@", now, "secs")
-        
+
 print("Approx. frame rate:", _NFRAMES/now, "fps")
 cv2.destroyAllWindows()
 testcap.stop()
-    
