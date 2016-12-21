@@ -15,14 +15,18 @@ class PiVideoCapture:
         # initialize the camera and stream
     	self.camera = PiCamera()
     	self.camera.resolution = resolution
-	self.camera.framerate = framerate
-	self.cap_raw = PiRGBArray(self.camera, size=resolution)
+        self.camera.framerate = framerate
+        self.cap_raw = PiRGBArray(self.camera,size=resolution)
 	self.cap = self.camera.capture_continuous(self.cap_raw,format="bgr", use_video_port=True)
 
 	# initialize the frame and the variable used to indicate
 	# if the thread should be stopped
 	self.frame = None
 	self.stopping = False
+	
+    def display(self):
+        cv2.imshow("Live", frame)
+        cv2.moveWindow("Live", 0, 0)
 
     def get(self):
 	""" return latest frame """
@@ -64,8 +68,8 @@ testcap = PiVideoCapture().run()
 start_t = time.time()
 for i in range(_NFRAMES):
     frame = testcap.get()
-    #if _DISPLAY:
-        #testcap.display()
+    if _DISPLAY:
+        testcap.display()
     key = cv2.waitKey(1)
     now = time.time()-start_t
     #print("Frame:", i, "@", now, "secs")
