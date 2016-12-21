@@ -21,7 +21,7 @@ class CVVideoCapture:
         self.stopping = False
 
     def display(self):
-        cv2.imshow("Live", frame)
+        cv2.imshow("Live", self.frame)
         cv2.moveWindow("Live", 0, 0)
 
     def get(self):
@@ -50,6 +50,8 @@ class CVVideoCapture:
             (self.grabbed, self.frame) = self.cap.read()
 
 import time
+import os
+os.system("sudo modprobe bcm2835-v4l2")
 _DISPLAY = True
 _NFRAMES = 200
 testcap = CVVideoCapture().run()

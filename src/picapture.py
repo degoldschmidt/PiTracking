@@ -25,7 +25,7 @@ class PiVideoCapture:
 	self.stopping = False
 	
     def display(self):
-        cv2.imshow("Live", frame)
+        cv2.imshow("Live", self.frame)
         cv2.moveWindow("Live", 0, 0)
 
     def get(self):
@@ -34,6 +34,7 @@ class PiVideoCapture:
 
     def run(self):
 	""" start and run a thread for grabbing frames from capture """
+	print("Run thread")
 	thr = Thread(target=self.update, args=())
 	thr.daemon = True
 	thr.start()
@@ -45,12 +46,15 @@ class PiVideoCapture:
 
     def update(self):
         """ update frame from capture """
+        print("Update thread")
         # keep looping infinitely until the thread is stopped
+        print(self.cap)
 	for f in self.cap:
             # grab the frame from the stream and clear the stream in
 	    # preparation for the next frame
 	    self.frame = f.array
-	    self.rawCapture.truncate(0)
+	    print(f.array)
+	    self.cap_raw.truncate(0)
 
 	    # if the thread indicator variable is set, stop the thread
 	    # and resource camera resources
@@ -62,13 +66,16 @@ class PiVideoCapture:
 
 
 import time
+import os
+os.system("sudo modprobe bcm2835-v4l2")
 _DISPLAY = True
 _NFRAMES = 200
 testcap = PiVideoCapture().run()
 start_t = time.time()
 for i in range(_NFRAMES):
     frame = testcap.get()
-    if _DISPLAY:
+    print(i)
+    if _DISPLAY and i>0:
         testcap.display()
     key = cv2.waitKey(1)
     now = time.time()-start_t
