@@ -13,7 +13,7 @@ class CVVideoCapture:
 
         self._VERBOSE = verbose
         # opencv video capture
-        (print("Video Source:", source)) if self._VERBOSE else 0
+        print("Video Source:", source) if self._VERBOSE else 0
         self.cap = cv2.VideoCapture(source)
         # initial frame grab
         (self.grabbed, self.frame) = self.cap.read()
