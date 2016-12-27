@@ -15,12 +15,15 @@ class CVVideoCapture:
         # opencv video capture
         print("Video Source:", source) if self._VERBOSE else 0
         self.cap = cv2.VideoCapture(source)
+        print("W:",self.cap.get(3)) if self._VERBOSE else 0
+        print("H:",self.cap.get(4)) if self._VERBOSE else 0
         # initial frame grab
         (self.grabbed, self.frame) = self.cap.read()
         # capture breaking condition
         self.stopping = False
 
     def display(self):
+        print("display")
         cv2.imshow("Live", self.frame)
         cv2.moveWindow("Live", 0, 0)
 
@@ -35,6 +38,11 @@ class CVVideoCapture:
         thr.start()
         return self
 
+    def setBrightness(self, value):
+        print(value)
+        self.cap.set(cv2.CAP_PROP_FPS,value)
+        print("Brightness:",self.cap.get(cv2.CAP_PROP_FPS))
+
     def stop(self):
         """ stop video capture """
         self.stopping = True
@@ -48,7 +56,7 @@ class CVVideoCapture:
                 return
             # grab frame
             (self.grabbed, self.frame) = self.cap.read()
-
+"""
 import time
 import os
 os.system("sudo modprobe bcm2835-v4l2")
@@ -67,3 +75,4 @@ for i in range(_NFRAMES):
 print("Approx. frame rate:", _NFRAMES/now, "fps")
 cv2.destroyAllWindows()
 testcap.stop()
+"""

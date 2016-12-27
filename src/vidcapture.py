@@ -9,14 +9,14 @@ class VideoCapture:
         """ Constructor """
 
         self._VERBOSE = verbose
-        (print("Capture type:", cap_type)) if self._VERBOSE else 0
-        (print("Video Source:", source)) if self._VERBOSE else 0
+        print("Capture type:", cap_type) if self._VERBOSE else 0
+        print("Video Source:", source) if self._VERBOSE else 0
 
         if cap_type == "CV":
-            from .cvcapture import CVVideoCapture
+            from cvcapture import CVVideoCapture
             self.cap = CVVideoCapture(source)
         elif cap_type == "PI":
-            from .picapture import PiVideoCapture
+            from picapture import PiVideoCapture
             self.cap = PiVideoCapture(resolution, framerate)
         else:
             print("ERROR: Capture type is not supported")
@@ -30,7 +30,7 @@ class VideoCapture:
 
     def run(self):
         """ start and run a thread for grabbing frames from capture """
-        return self.cap.start()
+        return self.cap.run()
 
     def stop(self):
         """ stops video capture """
