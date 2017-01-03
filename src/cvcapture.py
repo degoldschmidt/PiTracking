@@ -15,6 +15,8 @@ class CVVideoCapture:
         # opencv video capture
         print("Video Source:", source) if self._VERBOSE else 0
         self.cap = cv2.VideoCapture(source)
+        self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920.0)
+        self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080.0)
         print("W:",self.cap.get(3)) if self._VERBOSE else 0
         print("H:",self.cap.get(4)) if self._VERBOSE else 0
         # initial frame grab
