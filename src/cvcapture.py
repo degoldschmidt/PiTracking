@@ -40,8 +40,8 @@ class CVVideoCapture:
 
     def setBrightness(self, value):
         print(value)
-        self.cap.set(cv2.CAP_PROP_FPS,value)
-        print("Brightness:",self.cap.get(cv2.CAP_PROP_FPS))
+        self.cap.set(cv2.CAP_PROP_BRIGHTNESS,value)
+        print("Brightness:",self.cap.get(cv2.CAP_PROP_BRIGHTNESS))
 
     def stop(self):
         """ stop video capture """
