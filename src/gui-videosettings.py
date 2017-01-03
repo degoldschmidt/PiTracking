@@ -29,9 +29,9 @@ class App():
         self.mwidth = 480
         self.mheight = 270
         self.imageFrame = LabelFrame(self.root, text="Live Preview", width=self.mwidth, height=self.mheight, labelanchor='n')
-        self.imageFrame.grid(row=0, rowspan=6, column=0, padx=10, pady=2)
+        self.imageFrame.grid(row=0, rowspan=6, column=0, sticky=W+E+N+S, padx=10, pady=2)
         self.lmain = Label(self.imageFrame)
-        self.lmain.grid(row=0, rowspan=6, sticky=W+E+N+S, column=0)
+        self.lmain.grid(row=0, rowspan=6,  column=0)
         self.write = self.initWriter()
         bri = Scale(self.root, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, command=self.setBrightness, label = 'Brightness')
         bri.grid(row=0, column=1)
