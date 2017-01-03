@@ -34,7 +34,7 @@ class App():
         self.imageFrame.grid(row=0, rowspan=6, column=0, columnspan=3, sticky=W+E+N+S)
         self.lmain = Label(self.imageFrame)
         self.lmain.grid(row=0, rowspan=6,  column=0)
-        #self.write = self.initWriter()
+        self.write = self.initWriter()
         bri = Scale(self.root, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, command=self.setBrightness, label = 'Brightness')
         bri.set(self.cap.getProperty(cv2.CAP_PROP_BRIGHTNESS))
         bri.grid(row=0, column=3)
@@ -166,12 +166,13 @@ class App():
             self.cap.setWidth(float(value))
 
     def initWriter(self):
-        fps = 20.0
-        size = (1280, 720)
-        destinationFile = 'out.mp4'
+        fps = 30.0
+        size = (1920, 1080)
+        destinationFile = 'out.avi'
 
         # These are the codecs I've tried so far
-        codec = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
+        #codec = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
+        codec = cv2.VideoWriter_fourcc('M', 'J', 'P', 'G')
         video  = cv2.VideoWriter(destinationFile, codec, fps, size);
         if video is None:
             print('Warning: unable to create video writer')
