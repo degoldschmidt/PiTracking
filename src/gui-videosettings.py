@@ -119,7 +119,7 @@ class App():
 
     def getProperties(self):
         for ind in range(39):
-            print(ind, ":", self.cap.get(ind))
+            print(ind, ":", self.cap.getProperty(ind))
 
     def setBrightness(self, value):
         if not self.HALT:

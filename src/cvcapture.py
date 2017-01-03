@@ -31,6 +31,10 @@ class CVVideoCapture:
         """ return latest frame """
         return self.frame
 
+    def getProperty(self, index):
+        """ return capture properties """
+        return self.cap.get(index)
+
     def run(self):
         """ start and run a thread for grabbing frames from capture """
         thr = Thread(target=self.update, args=())
