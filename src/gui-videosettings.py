@@ -22,7 +22,7 @@ from cvcapture import CVVideoCapture
 
 class App():
     def __init__ (self):
-        self.HALT = True
+        self.HALT = False
         self.var = []
         self.conds = []
         self.root = self.mainWindow()
