@@ -51,7 +51,7 @@ class App():
         sat.set(self.cap.getProperty(cv2.CAP_PROP_SATURATION))
         sat.grid(row=5, column=4)
 
-        wid = Scale(self.root, from_=1, to=1920, orient=HORIZONTAL, resolution=1, label = 'Width')
+        wid = Scale(self.root, from_=1, to=1920, orient=HORIZONTAL, resolution=1, command=self.setWidth, label = 'Width')
         wid.set(self.cap.getProperty(cv2.CAP_PROP_FRAME_WIDTH))
         wid.grid(row=6, column=0, columnspan=2, sticky=W+E+N+S)
         hei = Scale(self.root, from_=1, to=1080, orient=HORIZONTAL, resolution=1, label = 'Height')
