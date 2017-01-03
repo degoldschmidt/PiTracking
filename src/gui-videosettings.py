@@ -31,25 +31,25 @@ class App():
         self.mwidth = 480
         self.mheight = 270
         self.imageFrame = LabelFrame(self.root, text="Live Preview", width=self.mwidth, height=self.mheight, labelanchor='n')
-        self.imageFrame.grid(row=0, rowspan=6, column=0, columnspan=5, sticky=W+E+N+S)
+        self.imageFrame.grid(row=0, rowspan=6, column=0, columnspan=4, sticky=W+E+N+S)
         self.lmain = Label(self.imageFrame)
         self.lmain.grid(row=0, rowspan=6,  column=0)
         self.write = self.initWriter()
         bri = Scale(self.root, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, command=self.setBrightness, label = 'Brightness')
         bri.set(self.cap.getProperty(cv2.CAP_PROP_BRIGHTNESS))
-        bri.grid(row=0, column=6)
+        bri.grid(row=0, column=5)
         contr = Scale(self.root, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, command=self.setContrast, label = 'Contrast')
         contr.set(self.cap.getProperty(cv2.CAP_PROP_CONTRAST))
-        contr.grid(row=1, column=6)
+        contr.grid(row=1, column=5)
         expos = Scale(self.root, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, label = 'Exposure', state=DISABLED)
-        expos.grid(row=2, column=6)
+        expos.grid(row=2, column=5)
         gain = Scale(self.root, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, label = 'Gain', state=DISABLED)
-        gain.grid(row=3, column=6)
+        gain.grid(row=3, column=5)
         hue = Scale(self.root, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, label = 'Hue', state=DISABLED)
-        hue.grid(row=4, column=6)
+        hue.grid(row=4, column=5)
         sat = Scale(self.root, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, command=self.setSaturation, label = 'Saturation')
         sat.set(self.cap.getProperty(cv2.CAP_PROP_SATURATION))
-        sat.grid(row=5, column=6)
+        sat.grid(row=5, column=5)
 
         wid = Scale(self.root, from_=1, to=1920, orient=HORIZONTAL, resolution=1, label = 'Width')
         #wid.set(self.cap.getProperty(cv2.CAP_PROP_FRAME_WIDTH))
@@ -60,7 +60,7 @@ class App():
         hei.grid(row=6, column=2, columnspan=2, sticky=W+E+N+S)
         fps = Scale(self.root, from_=1, to=120, orient=HORIZONTAL, resolution=1, label = 'Frame rate')
         #fps.set(self.cap.getProperty(cv2.CAP_PROP_FPS))
-        fps.grid(row=6, column=5, sticky=W+E+N+S)
+        fps.grid(row=6, column=4, sticky=W+E+N+S)
 
 
     def mainWindow (self):
