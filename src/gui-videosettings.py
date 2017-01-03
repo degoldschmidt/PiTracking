@@ -51,15 +51,12 @@ class App():
         sat.set(self.cap.getProperty(cv2.CAP_PROP_SATURATION))
         sat.grid(row=5, column=4)
 
-        wid = Scale(self.root, from_=1, to=1920, orient=HORIZONTAL, resolution=1, command=self.setWidth, label = 'Width')
-        wid.set(self.cap.getProperty(cv2.CAP_PROP_FRAME_WIDTH))
-        wid.grid(row=6, column=0, columnspan=2, sticky=W+E+N+S)
-        hei = Scale(self.root, from_=1, to=1080, orient=HORIZONTAL, resolution=1, label = 'Height')
-        hei.set(self.cap.getProperty(cv2.CAP_PROP_FRAME_HEIGHT))
-        hei.grid(row=6, column=2, columnspan=2, sticky=W+E+N+S)
-        fps = Scale(self.root, from_=1, to=120, orient=HORIZONTAL, resolution=1, label = 'Frame rate')
-        fps.set(self.cap.getProperty(cv2.CAP_PROP_FPS))
-        fps.grid(row=6, column=4, sticky=W+E+N+S)
+
+        optionList = ["640x480@30Hz", "800x600@30Hz", "1024x768@30Hz", "1280x960@30Hz", "1600x1080@30Hz", "1920x1080@30Hz"]
+        self.dropVar = StringVar()
+        self.dropVar.set("1920x1080@30Hz") # default choice
+        self.dropdown = OptionMenu(self.root, self.dropVar, *optionList, command=self.setResolution)
+        self.dropdown.grid(column=0, columnspan=2, row=6, sticky=W+E+N+S)
 
 
     def mainWindow (self):
@@ -93,8 +90,8 @@ class App():
     """ TODO """
     def displayFrame(self):
         #Graphics window
-        cv2image = cv2.flip(self.cap.get(), 1)
-        cv2image = cv2.resize(cv2image,(self.mwidth, self.mheight), interpolation = cv2.INTER_CUBIC)
+        #cv2image = cv2.flip(self.cap.get(), 1)
+        cv2image = cv2.resize(self.cap.get(),(self.mwidth, self.mheight), interpolation = cv2.INTER_CUBIC)
         cv2image = cv2.cvtColor(cv2image, cv2.COLOR_BGR2RGBA)
         cv2image = Image.fromarray(cv2image)
         imgtk = ImageTk.PhotoImage(image=cv2image)
@@ -155,6 +152,25 @@ class App():
     def setHue(self, value):
         if not self.HALT:
             self.cap.setHue(float(value))
+    def setResolution(self, value):
+        if self.dropVar.get() == "640x480@30Hz":
+            self.cap.setWidth(640)
+            self.cap.setHeight(480)
+        elif self.dropVar.get() == "800x600@30Hz":
+            self.cap.setWidth(800)
+            self.cap.setHeight(600)
+        elif self.dropVar.get() == "1024x768@30Hz":
+            self.cap.setWidth(1024)
+            self.cap.setHeight(768)
+        elif self.dropVar.get() == "1280x960@30Hz":
+            self.cap.setWidth(1280)
+            self.cap.setHeight(960)
+        elif self.dropVar.get() == "1600x1080@30Hz":
+            self.cap.setWidth(1600)
+            self.cap.setHeight(1080)
+        elif self.dropVar.get() == "1920x1080@30Hz":
+            self.cap.setWidth(1920)
+            self.cap.setHeight(1080)
     def setSaturation(self, value):
         if not self.HALT:
             self.cap.setSaturation(float(value))
