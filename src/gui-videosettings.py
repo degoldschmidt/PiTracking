@@ -22,6 +22,7 @@ from cvcapture import CVVideoCapture
 
 class App():
     def __init__ (self):
+        self.HALT = True
         self.var = []
         self.conds = []
         self.root = self.mainWindow()
@@ -116,17 +117,23 @@ class App():
         return rootmenu
 
     def setBrightness(self, value):
-        self.cap.setBrightness(float(value))
+        if not self.HALT:
+            self.cap.setBrightness(float(value))
     def setContrast(self, value):
-        self.cap.setContrast(float(value))
+        if not self.HALT:
+            self.cap.setContrast(float(value))
     def setExposure(self, value):
-        self.cap.setExposure(float(value))
+        if not self.HALT:
+            self.cap.setExposure(float(value))
     def setGain(self, value):
-        self.cap.setGain(float(value))
+        if not self.HALT:
+            self.cap.setGain(float(value))
     def setHue(self, value):
-        self.cap.setHue(float(value))
+        if not self.HALT:
+            self.cap.setHue(float(value))
     def setSaturation(self, value):
-        self.cap.setSaturation(float(value))
+        if not self.HALT:
+            self.cap.setSaturation(float(value))
 
     def initWriter(self):
         fps = 20.0
