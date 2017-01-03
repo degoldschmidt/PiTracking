@@ -34,7 +34,7 @@ class App():
         self.imageFrame.grid(row=0, rowspan=6, column=0, columnspan=3, sticky=W+E+N+S)
         self.lmain = Label(self.imageFrame)
         self.lmain.grid(row=0, rowspan=6,  column=0)
-        self.write = self.initWriter()
+        #self.write = self.initWriter()
         bri = Scale(self.root, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, command=self.setBrightness, label = 'Brightness')
         bri.set(self.cap.getProperty(cv2.CAP_PROP_BRIGHTNESS))
         bri.grid(row=0, column=3)
