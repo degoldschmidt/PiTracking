@@ -131,6 +131,10 @@ class App():
         for ind in range(39):
             print(ind, ":", self.cap.getProperty(ind))
 
+    def setAspRatio(self, wval, hval):
+        self.mheight = int(self.mwidth*(hval/wval))
+        print("Set preview:", self.mwidth, self.mheight)
+        self.imageFrame = LabelFrame(self.root, text="Live Preview", width=self.mwidth, height=self.mheight, labelanchor='n')
     def setBrightness(self, value):
         if not self.HALT:
             self.cap.setBrightness(float(value))
@@ -153,24 +157,36 @@ class App():
         if not self.HALT:
             self.cap.setHue(float(value))
     def setResolution(self, value):
+        self.cap.stop()
+        self.cap = VideoCapture("CV").run()
         if self.dropVar.get() == "640x480@30Hz":
             self.cap.setWidth(640)
             self.cap.setHeight(480)
+            self.setAspRatio(4,3)
         elif self.dropVar.get() == "800x600@30Hz":
             self.cap.setWidth(800)
             self.cap.setHeight(600)
+            self.setAspRatio(4,3)
         elif self.dropVar.get() == "1024x768@30Hz":
             self.cap.setWidth(1024)
             self.cap.setHeight(768)
+            self.setAspRatio(4,3)
+        elif self.dropVar.get() == "1280x720@30Hz":
+            self.cap.setWidth(1280)
+            self.cap.setHeight(960)
+            self.setAspRatio(16,9)
         elif self.dropVar.get() == "1280x960@30Hz":
             self.cap.setWidth(1280)
             self.cap.setHeight(960)
-        elif self.dropVar.get() == "1600x1080@30Hz":
+            self.setAspRatio(4,3)
+        elif self.dropVar.get() == "1600x900@30Hz":
             self.cap.setWidth(1600)
-            self.cap.setHeight(1080)
+            self.cap.setHeight(900)
+            self.setAspRatio(16,9)
         elif self.dropVar.get() == "1920x1080@30Hz":
             self.cap.setWidth(1920)
             self.cap.setHeight(1080)
+            self.setAspRatio(16,9)
     def setSaturation(self, value):
         if not self.HALT:
             self.cap.setSaturation(float(value))

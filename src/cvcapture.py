@@ -72,7 +72,7 @@ class CVVideoCapture:
     def setHeight(self, value):
         print(value)
         self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT,value)
-        print("Frame height:",self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+        print("Frame height:", self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
     def setHue(self, value):
         print(value)
@@ -82,12 +82,12 @@ class CVVideoCapture:
     def setSaturation(self, value):
         print(value)
         self.cap.set(cv2.CAP_PROP_SATURATION,value)
-        print("Saturation:",self.cap.get(cv2.CAP_PROP_SATURATION))
+        print("Saturation:", self.cap.get(cv2.CAP_PROP_SATURATION))
 
     def setWidth(self, value):
         print(value)
-        self.cap.set(cv2.CAP_PROP_FRAME_WIDTH,value)
-        print("Frame width:",self.cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+        self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, value)
+        print("Frame width:", self.cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 
     def stop(self):
         """ stop video capture """
