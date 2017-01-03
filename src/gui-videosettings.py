@@ -52,14 +52,13 @@ class App():
         sat.grid(row=5, column=4)
 
         wid = Scale(self.root, from_=1, to=1920, orient=HORIZONTAL, resolution=1, label = 'Width')
-        #wid.set(self.cap.getProperty(cv2.CAP_PROP_FRAME_WIDTH))
+        wid.set(self.cap.getProperty(cv2.CAP_PROP_FRAME_WIDTH))
         wid.grid(row=6, column=0, columnspan=2, sticky=W+E+N+S)
         hei = Scale(self.root, from_=1, to=1080, orient=HORIZONTAL, resolution=1, label = 'Height')
-        #hei.set(self.cap.getProperty(cv2.CAP_PROP_FRAME_HEIGHT))
-
+        hei.set(self.cap.getProperty(cv2.CAP_PROP_FRAME_HEIGHT))
         hei.grid(row=6, column=2, columnspan=2, sticky=W+E+N+S)
         fps = Scale(self.root, from_=1, to=120, orient=HORIZONTAL, resolution=1, label = 'Frame rate')
-        #fps.set(self.cap.getProperty(cv2.CAP_PROP_FPS))
+        fps.set(self.cap.getProperty(cv2.CAP_PROP_FPS))
         fps.grid(row=6, column=4, sticky=W+E+N+S)
 
 
