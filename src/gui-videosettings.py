@@ -53,13 +53,16 @@ class App():
 
         wid = Scale(self.root, from_=1, to=1920, orient=HORIZONTAL, resolution=1, label = 'Width')
         #wid.set(self.cap.getProperty(cv2.CAP_PROP_FRAME_WIDTH))
-        #wid.grid(row=6, column=0)
+        print("3")
+        wid.grid(row=6, column=0)
         hei = Scale(self.root, from_=1, to=1080, orient=HORIZONTAL, resolution=1, label = 'Height')
         #hei.set(self.cap.getProperty(cv2.CAP_PROP_FRAME_HEIGHT))
-        #hei.grid(row=6, column=1)
+        print("2")
+        hei.grid(row=6, column=1)
         fps = Scale(self.root, from_=1, to=120, orient=HORIZONTAL, resolution=1, label = 'Frame rate')
         #fps.set(self.cap.getProperty(cv2.CAP_PROP_FPS))
-        #fps.grid(row=6, column=2)
+        print("1")
+        fps.grid(row=6, column=2)
 
 
     def mainWindow (self):
