@@ -27,6 +27,7 @@ class App():
         self.conds = []
         self.root = self.mainWindow()
         self.cap = VideoCapture("CV").run()
+        self.getProperties()
         self.mwidth = 480
         self.mheight = 270
         self.imageFrame = LabelFrame(self.root, text="Live Preview", width=self.mwidth, height=self.mheight, labelanchor='n')
@@ -115,6 +116,10 @@ class App():
         helpmenu.add_command(label="About...")
 
         return rootmenu
+
+    def getProperties(self):
+        for ind in range(39):
+            print(ind, ":", self.cap.get(ind))
 
     def setBrightness(self, value):
         if not self.HALT:
