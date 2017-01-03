@@ -33,8 +33,19 @@ class App():
         self.lmain = Label(self.imageFrame)
         self.lmain.grid(row=0, column=0)
         self.write = self.initWriter()
-        w = Scale(self.root, from_=-1, to=1, orient=HORIZONTAL, resolution=0.01, command=self.setBrightness)
-        w.grid(row=1, column=0)
+        bri = Scale(self.root, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, command=self.setBrightness, label = 'Brightness')
+        bri.grid(row=0, column=1)
+        contr = Scale(self.root, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, command=self.setContrast, label = 'Contrast')
+        contr.grid(row=1, column=1)
+        expos = Scale(self.root, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, command=self.setExposure, label = 'Exposure')
+        expos.grid(row=2, column=1)
+        gain = Scale(self.root, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, command=self.setGain, label = 'Gain')
+        gain.grid(row=3, column=1)
+        hue = Scale(self.root, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, command=self.setHue, label = 'Hue')
+        hue.grid(row=4, column=1)
+        sat = Scale(self.root, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, command=self.setSaturation, label = 'Saturation')
+        sat.grid(row=5, column=1)
+
 
     def mainWindow (self):
         root = Tk()

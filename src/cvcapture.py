@@ -43,6 +43,31 @@ class CVVideoCapture:
         self.cap.set(cv2.CAP_PROP_BRIGHTNESS,value)
         print("Brightness:",self.cap.get(cv2.CAP_PROP_BRIGHTNESS))
 
+    def setContrast(self, value):
+        print(value)
+        self.cap.set(cv2.CAP_PROP_CONTRAST,value)
+        print("Brightness:",self.cap.get(cv2.CAP_PROP_CONTRAST))
+
+    def setExposure(self, value):
+        print(value)
+        self.cap.set(cv2.CAP_PROP_EXPOSURE,value)
+        print("Brightness:",self.cap.get(cv2.CAP_PROP_EXPOSURE))
+
+    def setGain(self, value):
+        print(value)
+        self.cap.set(cv2.CAP_PROP_GAIN,value)
+        print("Brightness:",self.cap.get(cv2.CAP_PROP_GAIN))
+
+    def setHue(self, value):
+        print(value)
+        self.cap.set(cv2.CAP_PROP_HUE,value)
+        print("Brightness:",self.cap.get(cv2.CAP_PROP_HUE))
+
+    def setSaturation(self, value):
+        print(value)
+        self.cap.set(cv2.CAP_PROP_SATURATION,value)
+        print("Brightness:",self.cap.get(cv2.CAP_PROP_SATURATION))
+
     def stop(self):
         """ stop video capture """
         self.stopping = True
