@@ -27,7 +27,7 @@ class App():
         self.conds = []
         self.root = self.mainWindow()
         self.cap = VideoCapture("CV").run()
-        self.getProperties()
+        #self.getProperties()
         self.mwidth = 480
         self.mheight = 270
         self.imageFrame = LabelFrame(self.root, text="Live Preview", width=self.mwidth, height=self.mheight, labelanchor='n')
