@@ -33,7 +33,7 @@ class App():
         self.lmain = Label(self.imageFrame)
         self.lmain.grid(row=0, column=0)
         self.write = self.initWriter()
-        w = Scale(self.root, from_=-100, to=100, orient=HORIZONTAL, resolution=1, command=self.setBrightness)
+        w = Scale(self.root, from_=-1, to=1, orient=HORIZONTAL, resolution=0.01, command=self.setBrightness)
         w.grid(row=1, column=0)
 
     def mainWindow (self):
