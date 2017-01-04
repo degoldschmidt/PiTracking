@@ -1,8 +1,7 @@
 # import the necessary packages
-import sys
-import math
-import cv2
+import sys, math, cv2, os
 import numpy as np
+
 """ Compability check for Python """
 if sys.version_info >= (3,0):
     from tkinter import *
@@ -23,41 +22,25 @@ from cvcapture import CVVideoCapture
 class App():
     def __init__ (self):
         self.HALT = False
+        self.mwidth = 480
+        self.mheight = 270
         self.var = []
         self.conds = []
         self.root = self.mainWindow()
         self.cap = VideoCapture("CV").run()
         #self.getProperties()
-        self.mwidth = 480
-        self.mheight = 270
-        self.imageFrame = LabelFrame(self.root, text="Live Preview", width=self.mwidth, height=self.mheight, labelanchor='n')
-        self.imageFrame.grid(row=0, rowspan=6, column=0, columnspan=4, sticky=W+E+N+S)
-        self.lmain = Label(self.imageFrame)
-        self.lmain.grid(row=0, rowspan=6,  column=0)
         self.write = self.initWriter()
-        bri = Scale(self.root, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, command=self.setBrightness, label = 'Brightness')
-        bri.set(self.cap.getProperty(cv2.CAP_PROP_BRIGHTNESS))
-        bri.grid(row=0, column=4)
-        contr = Scale(self.root, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, command=self.setContrast, label = 'Contrast')
-        contr.set(self.cap.getProperty(cv2.CAP_PROP_CONTRAST))
-        contr.grid(row=1, column=4)
-        expos = Scale(self.root, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, label = 'Exposure', state=DISABLED)
-        expos.grid(row=2, column=4)
-        gain = Scale(self.root, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, label = 'Gain', state=DISABLED)
-        gain.grid(row=3, column=4)
-        hue = Scale(self.root, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, label = 'Hue', state=DISABLED)
-        hue.grid(row=4, column=4)
-        sat = Scale(self.root, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, command=self.setSaturation, label = 'Saturation')
-        sat.set(self.cap.getProperty(cv2.CAP_PROP_SATURATION))
-        sat.grid(row=5, column=4)
 
-
-        optionList = ["640x480@30Hz", "800x600@30Hz", "1024x768@30Hz", "1280x960@30Hz", "1600x1080@30Hz", "1920x1080@30Hz"]
-        self.dropVar = StringVar()
-        self.dropVar.set("1920x1080@30Hz") # default choice
-        self.dropdown = OptionMenu(self.root, self.dropVar, *optionList, command=self.setResolution)
-        self.dropdown.grid(column=0, columnspan=2, row=6, sticky=W+E+N+S)
-
+        """ Notebook structure """
+        self.tabs = ttk.Notebook(self.root)
+        self.f1 = Frame(self.tabs)   # first page, which would get widgets gridded into it
+        self.f1 = self.tabInput(self.f1)
+        self.f2 = Frame(self.tabs)   # second page
+        self.f3 = Frame(self.tabs)   # third page
+        self.tabs.add(self.f1, text='Input Settings')
+        self.tabs.add(self.f2, text='Output Settings')
+        self.tabs.add(self.f3, text='Recording')
+        self.tabs.pack(fill=BOTH, expand=1)
 
     def mainWindow (self):
         root = Tk()
@@ -65,7 +48,7 @@ class App():
         root.attributes("-topmost", 1)
         root.attributes("-topmost", 0)
         root.protocol("WM_DELETE_WINDOW", self.destr)
-        root.configure(background='#ffffff')
+        root.configure(background='#000000')
         root.title("Raspberry Pi Camera V2 Settings GUI")
         root.resizable(width=True, height=True)
         #root.geometry("650x900")
@@ -193,6 +176,36 @@ class App():
     def setWidth(self, value):
         if not self.HALT:
             self.cap.setWidth(float(value))
+
+    def tabInput(self, parent):
+        """ Live Preview """
+        self.imageFrame = LabelFrame(parent, text="Live Preview", width=self.mwidth, height=self.mheight, labelanchor='n')
+        self.imageFrame.grid(row=0, rowspan=6, column=0, columnspan=4, sticky=W+E+N+S)
+        self.lmain = Label(self.imageFrame)
+        self.lmain.grid(row=0, rowspan=6,  column=0)
+        """ Video capture settings """
+        bri = Scale(parent, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, command=self.setBrightness, label = 'Brightness')
+        bri.set(self.cap.getProperty(cv2.CAP_PROP_BRIGHTNESS))
+        bri.grid(row=0, column=4)
+        contr = Scale(parent, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, command=self.setContrast, label = 'Contrast')
+        contr.set(self.cap.getProperty(cv2.CAP_PROP_CONTRAST))
+        contr.grid(row=1, column=4)
+        expos = Scale(parent, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, label = 'Exposure', state=DISABLED)
+        expos.grid(row=2, column=4)
+        gain = Scale(parent, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, label = 'Gain', state=DISABLED)
+        gain.grid(row=3, column=4)
+        hue = Scale(parent, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, label = 'Hue', state=DISABLED)
+        hue.grid(row=4, column=4)
+        sat = Scale(parent, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, command=self.setSaturation, label = 'Saturation')
+        sat.set(self.cap.getProperty(cv2.CAP_PROP_SATURATION))
+        sat.grid(row=5, column=4)
+        """ Dropdown list """
+        optionList = ["640x480@30Hz", "800x600@30Hz", "1024x768@30Hz", "1280x960@30Hz", "1600x1080@30Hz", "1920x1080@30Hz"]
+        self.dropVar = StringVar()
+        self.dropVar.set("1920x1080@30Hz") # default choice
+        self.dropdown = OptionMenu(parent, self.dropVar, *optionList, command=self.setResolution)
+        self.dropdown.grid(column=0, columnspan=2, row=6, sticky=W+E+N+S)
+        return parent
 
     def initWriter(self):
         fps = 30.0
