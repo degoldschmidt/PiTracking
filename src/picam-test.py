@@ -1,22 +1,25 @@
 import time
 import picamera
+from io import BytesIO
 
-frames = 60
-
+frames = 5
+stream = BytesIO()
 def filenames():
     frame = 0
     while frame < frames:
-        yield 'image%02d.jpg' % frame
+        yield '../../out/image%02d.jpg' % frame
         frame += 1
 
 with picamera.PiCamera() as camera:
-    camera.resolution = (1024, 768)
+    camera.resolution = (900, 900)
     camera.framerate = 30
     camera.start_preview()
     # Give the camera some warm-up time
     time.sleep(2)
     start = time.time()
-    camera.capture_sequence(filenames(), use_video_port=True)
+    camera.start_recording("../../out/out.h264")
+    camera.wait_recording(10)
+    camera.stop_recording()
     finish = time.time()
 print('Captured %d frames at %.2ffps' % (
     frames,
