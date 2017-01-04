@@ -99,7 +99,9 @@ class CVVideoCapture:
         while True:
             # stopping condition
             if self.stopping:
+                print("releasing")
                 self.cap.release()
+                print("released")
                 return
             # grab frame
             (self.grabbed, self.frame) = self.cap.read()
