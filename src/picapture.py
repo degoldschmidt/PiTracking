@@ -13,7 +13,7 @@ class PiVideoCapture:
     UPDATED:
     """
 
-    def __init__(self, resolution=(1920, 1080), framerate=30):
+    def __init__(self, resolution=(1920, 1072), framerate=30):
         # initialize the camera and stream
         self.camera = PiCamera()
         self.camera.resolution = resolution
@@ -51,12 +51,10 @@ class PiVideoCapture:
         """ update frame from capture """
         print("Update thread")
         # keep looping infinitely until the thread is stopped
-        print(self.cap)
         for f in self.cap:
             # grab the frame from the stream and clear the stream in
             # preparation for the next frame
             self.frame = f.array
-            print(f.array)
             self.cap_raw.truncate(0)
 
             # if the thread indicator variable is set, stop the thread
@@ -67,7 +65,7 @@ class PiVideoCapture:
                 self.camera.close()
                 return
 
-
+"""
 import time
 _DISPLAY = True
 _NFRAMES = 200
@@ -84,3 +82,4 @@ for i in range(_NFRAMES):
 print("Approx. frame rate:", _NFRAMES / now, "fps")
 cv2.destroyAllWindows()
 testcap.stop()
+"""

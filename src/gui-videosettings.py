@@ -21,13 +21,13 @@ from cvcapture import CVVideoCapture
 
 class App():
     def __init__ (self):
-        self.HALT = False
+        self.HALT = True
         self.mwidth = 480
         self.mheight = 270
         self.var = []
         self.conds = []
         self.root = self.mainWindow()
-        self.cap = VideoCapture("CV", size=(1920, 1080)).run()
+        self.cap = VideoCapture("PI").run()
         #self.getProperties()
         self.write = self.initWriter()
 
@@ -73,14 +73,16 @@ class App():
     """ TODO """
     def displayFrame(self):
         #Graphics window
-        #cv2image = cv2.flip(self.cap.get(), 1)
-        cv2image = cv2.resize(self.cap.get(),(self.mwidth, self.mheight), interpolation = cv2.INTER_CUBIC)
-        cv2image = cv2.cvtColor(cv2image, cv2.COLOR_BGR2RGBA)
-        cv2image = Image.fromarray(cv2image)
-        imgtk = ImageTk.PhotoImage(image=cv2image)
-        self.lmain.imgtk = imgtk
-        self.lmain.configure(image=imgtk)
-        self.lmain.after(10, self.displayFrame)
+        raw_image = self.cap.get()
+        print(raw_image)
+        if raw_image is not None:
+            #cv2image = cv2.resize(raw_image,(self.mwidth, self.mheight), interpolation = cv2.INTER_CUBIC)
+            cv2image = cv2.cvtColor(raw_image, cv2.COLOR_BGR2RGBA)
+            cv2image = Image.fromarray(cv2image)
+            imgtk = ImageTk.PhotoImage(image=cv2image)
+            self.lmain.imgtk = imgtk
+            self.lmain.configure(image=imgtk)
+            self.lmain.after(10, self.displayFrame)
 
     def getMenu(self, root):
         rootmenu = Menu(root)
@@ -191,10 +193,10 @@ class App():
         self.lmain.grid(row=0, rowspan=6,  column=0)
         """ Video capture settings """
         bri = Scale(parent, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, command=self.setBrightness, label = 'Brightness')
-        bri.set(self.cap.getProperty(cv2.CAP_PROP_BRIGHTNESS))
+        #bri.set(self.cap.getProperty(cv2.CAP_PROP_BRIGHTNESS))
         bri.grid(row=0, column=4)
         contr = Scale(parent, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, command=self.setContrast, label = 'Contrast')
-        contr.set(self.cap.getProperty(cv2.CAP_PROP_CONTRAST))
+        #contr.set(self.cap.getProperty(cv2.CAP_PROP_CONTRAST))
         contr.grid(row=1, column=4)
         expos = Scale(parent, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, label = 'Exposure', state=DISABLED)
         expos.grid(row=2, column=4)
@@ -203,7 +205,7 @@ class App():
         hue = Scale(parent, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, label = 'Hue', state=DISABLED)
         hue.grid(row=4, column=4)
         sat = Scale(parent, from_=0, to=1, orient=HORIZONTAL, resolution=0.01, command=self.setSaturation, label = 'Saturation')
-        sat.set(self.cap.getProperty(cv2.CAP_PROP_SATURATION))
+        #sat.set(self.cap.getProperty(cv2.CAP_PROP_SATURATION))
         sat.grid(row=5, column=4)
         """ Dropdown list """
         optionList = ["640x480@30Hz", "800x600@30Hz", "1024x768@30Hz", "1280x960@30Hz", "1600x1080@30Hz", "1920x1080@30Hz"]
@@ -238,7 +240,7 @@ class App():
 
 def main():
     app = App()
-    #app.displayFrame()
+    app.displayFrame()
     #app.capture()
     app.root.mainloop()
 
