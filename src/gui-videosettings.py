@@ -141,8 +141,9 @@ class App():
             self.cap.setHue(float(value))
     def setResolution(self, value):
         self.cap.stop()
-        self.cap = VideoCapture("CV").run()
         print("Until here")
+        #self.cap = VideoCapture("CV").run()
+        """
         if self.dropVar.get() == "640x480@30Hz":
             self.cap.setWidth(640)
             self.cap.setHeight(480)
@@ -171,6 +172,7 @@ class App():
             self.cap.setWidth(1920)
             self.cap.setHeight(1080)
             self.setAspRatio(16,9)
+        """
     def setSaturation(self, value):
         if not self.HALT:
             self.cap.setSaturation(float(value))
