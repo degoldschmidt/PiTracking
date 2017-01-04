@@ -142,7 +142,7 @@ class App():
     def setResolution(self, value):
         self.cap.stop()
         print("Until here")
-        #self.cap = VideoCapture("CV").run()
+        self.cap = VideoCapture("CV").run()
         """
         if self.dropVar.get() == "640x480@30Hz":
             self.cap.setWidth(640)
