@@ -8,15 +8,15 @@ class CVVideoCapture:
     UPDATED:
     """
 
-    def __init__(self, source=0, verbose=False):
+    def __init__(self, source=0, verbose=False, size=(1200,800)):
         """ Constructor """
 
         self._VERBOSE = verbose
         # opencv video capture
         print("Video Source:", source) if self._VERBOSE else 0
         self.cap = cv2.VideoCapture(source)
-        self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1600.0)
-        self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080.0)
+        self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, size[0])
+        self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, size[1])
         print("W:",self.cap.get(3)) if self._VERBOSE else 0
         print("H:",self.cap.get(4)) if self._VERBOSE else 0
         # initial frame grab

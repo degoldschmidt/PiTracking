@@ -27,7 +27,7 @@ class App():
         self.var = []
         self.conds = []
         self.root = self.mainWindow()
-        self.cap = VideoCapture("CV").run()
+        self.cap = VideoCapture("CV", size=(1920, 1080)).run()
         #self.getProperties()
         self.write = self.initWriter()
 
@@ -142,6 +142,7 @@ class App():
     def setResolution(self, value):
         self.cap.stop()
         self.cap = VideoCapture("CV").run()
+        print("Until here")
         if self.dropVar.get() == "640x480@30Hz":
             self.cap.setWidth(640)
             self.cap.setHeight(480)

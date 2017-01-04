@@ -5,7 +5,7 @@ class VideoCapture:
     UPDATED:
     """
 
-    def __init__(self, cap_type, source=0, resolution=(1920, 1080), framerate=30, verbose=False):
+    def __init__(self, cap_type, source=0, size=(1920, 1080), framerate=30, verbose=False):
         """ Constructor """
 
         self._VERBOSE = verbose
@@ -14,7 +14,7 @@ class VideoCapture:
 
         if cap_type == "CV":
             from cvcapture import CVVideoCapture
-            self.cap = CVVideoCapture(source)
+            self.cap = CVVideoCapture(source, size=size)
         elif cap_type == "PI":
             from picapture import PiVideoCapture
             self.cap = PiVideoCapture(resolution, framerate)
