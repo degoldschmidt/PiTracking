@@ -114,6 +114,10 @@ class App():
         for ind in range(39):
             print(ind, ":", self.cap.getProperty(ind))
 
+    def resetCapture(self):
+        self.cap.stop()
+        self.write.release()
+
     def setAspRatio(self, wval, hval):
         self.mheight = int(self.mwidth*(hval/wval))
         print("Set preview:", self.mwidth, self.mheight)
@@ -140,9 +144,8 @@ class App():
         if not self.HALT:
             self.cap.setHue(float(value))
     def setResolution(self, value):
-        self.cap.stop()
-        print("Until here")
-        self.cap = VideoCapture("CV").run()
+        self.resetCapture()
+        #self.cap = VideoCapture("CV").run()
         """
         if self.dropVar.get() == "640x480@30Hz":
             self.cap.setWidth(640)

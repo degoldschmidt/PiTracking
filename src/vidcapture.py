@@ -34,6 +34,7 @@ class VideoCapture:
 
     def stop(self):
         """ stops video capture """
+        print("stopping")
         self.cap.stop()
 
     def update(self):

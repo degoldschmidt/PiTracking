@@ -8,7 +8,7 @@ class CVVideoCapture:
     UPDATED:
     """
 
-    def __init__(self, source=0, verbose=False, size=(1200,800)):
+    def __init__(self, source=0, verbose=True, size=(1200,800)):
         """ Constructor """
 
         self._VERBOSE = verbose
@@ -17,15 +17,16 @@ class CVVideoCapture:
         self.cap = cv2.VideoCapture(source)
         self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, size[0])
         self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, size[1])
+        self.cap.set(cv2.CAP_PROP_FPS, 30)
         print("W:",self.cap.get(3)) if self._VERBOSE else 0
         print("H:",self.cap.get(4)) if self._VERBOSE else 0
+        print("FPS:",self.cap.get(5)) if self._VERBOSE else 0
         # initial frame grab
         (self.grabbed, self.frame) = self.cap.read()
         # capture breaking condition
         self.stopping = False
 
     def display(self):
-        print("display")
         cv2.imshow("Live", self.frame)
         cv2.moveWindow("Live", 0, 0)
 
@@ -95,33 +96,29 @@ class CVVideoCapture:
 
     def update(self):
         """ update frame from capture """
-        # indefinite until break
-        while True:
-            # stopping condition
-            if self.stopping:
-                print("releasing")
-                self.cap.release()
-                print("released")
-                return
+        # indefinite until stop
+        while not self.stopping and self.cap.isOpened():
             # grab frame
             (self.grabbed, self.frame) = self.cap.read()
-"""
-import time
-import os
-os.system("sudo modprobe bcm2835-v4l2")
-_DISPLAY = True
-_NFRAMES = 200
-testcap = CVVideoCapture().run()
-start_t = time.time()
-for i in range(_NFRAMES):
-    frame = testcap.get()
-    if _DISPLAY:
-        testcap.display()
-    key = cv2.waitKey(1)
-    now = time.time()-start_t
-    #print("Frame:", i, "@", now, "secs")
 
-print("Approx. frame rate:", _NFRAMES/now, "fps")
-cv2.destroyAllWindows()
-testcap.stop()
-"""
+def main():
+    import time
+    _DISPLAY = False
+    _NFRAMES = 200
+    testcap = CVVideoCapture(size=(1920, 1280)).run()
+    start_t = time.time()
+    for i in range(_NFRAMES):
+        frame = testcap.get()
+        if _DISPLAY:
+            testcap.display()
+        key = cv2.waitKey(1)
+        now = time.time()-start_t
+        #print("Frame:", i, "@", now, "secs")
+
+    print("Approx. frame rate:", _NFRAMES/now, "fps")
+    cv2.destroyAllWindows()
+    testcap.stop()
+    
+if __name__ == '__main__':
+    main()
+
