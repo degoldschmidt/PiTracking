@@ -235,7 +235,7 @@ class App():
 
 def main():
     app = App()
-    app.displayFrame()
+    #app.displayFrame()
     #app.capture()
     app.root.mainloop()
 
