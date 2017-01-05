@@ -18,7 +18,7 @@ with picamera.PiCamera() as camera:
     time.sleep(2)
     start = time.time()
     camera.start_recording("../../out/out.h264")
-    camera.wait_recording(10)
+    camera.wait_recording(30)
     camera.stop_recording()
     finish = time.time()
 print('Captured %d frames at %.2ffps' % (
