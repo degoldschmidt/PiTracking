@@ -51,7 +51,7 @@ class PiVideoCapture:
         """ update frame from capture """
         print("Update thread")
         # keep looping infinitely until the thread is stopped
-        for f in self.cap:
+        for f in self.cap_raw:
             # grab the frame from the stream and clear the stream in
             # preparation for the next frame
             self.frame = f.array

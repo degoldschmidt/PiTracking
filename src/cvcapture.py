@@ -8,16 +8,17 @@ class CVVideoCapture:
     UPDATED:
     """
 
-    def __init__(self, source=0, verbose=True, size=(1200,800)):
+    def __init__(self, source=1, verbose=True, size=(1200,800)):
         """ Constructor """
 
         self._VERBOSE = verbose
+        self.size = size
         # opencv video capture
         print("Video Source:", source) if self._VERBOSE else 0
         self.cap = cv2.VideoCapture(source)
         self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, size[0])
         self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, size[1])
-        self.cap.set(cv2.CAP_PROP_FPS, 30)
+        self.cap.set(cv2.CAP_PROP_FPS, 20)
         print("W:",self.cap.get(3)) if self._VERBOSE else 0
         print("H:",self.cap.get(4)) if self._VERBOSE else 0
         print("FPS:",self.cap.get(5)) if self._VERBOSE else 0
@@ -27,7 +28,11 @@ class CVVideoCapture:
         self.stopping = False
 
     def display(self):
-        cv2.imshow("Live", self.frame)
+        print(self.size)
+        downsize = self.size
+        w,h = int(0.25 *downsize[0]), int(0.25 *downsize[1]) 
+        rsframe = cv2.resize(self.frame, (w, h))
+        cv2.imshow("Live", rsframe)
         cv2.moveWindow("Live", 0, 0)
 
     def get(self):
@@ -103,15 +108,22 @@ class CVVideoCapture:
 
 def main():
     import time
-    _DISPLAY = False
-    _NFRAMES = 200
-    testcap = CVVideoCapture(size=(1920, 1280)).run()
+    _DISPLAY = True
+    _NFRAMES = 100
+    _FPS = 30
+    _PERIOD = 1/_FPS
+    testcap = CVVideoCapture(size=(1280, 1024)).run()
     start_t = time.time()
+    last_t = time.time()
     for i in range(_NFRAMES):
         frame = testcap.get()
         if _DISPLAY:
             testcap.display()
-        key = cv2.waitKey(1)
+            cv2.waitKey(1)
+        else:
+            delta_t = time.time() - last_t
+            key = cv2.waitKey(int(1000*(_PERIOD - delta_t)))
+        last_t = time.time()
         now = time.time()-start_t
         #print("Frame:", i, "@", now, "secs")
 
