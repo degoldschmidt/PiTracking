@@ -16,7 +16,7 @@ args = vars(ap.parse_args())
 cap = cv2.VideoCapture(0)
 
 # Define codec and VideoWriter object
-out = cv2.VideoWriter("output.avi", cv2.VideoWriter_fourcc(*'DIVX'), 20.0, (1000,1000))
+out = cv2.VideoWriter("output_nodis.avi", cv2.VideoWriter_fourcc(*'DIVX'), 20.0, (640,480))
 
 start = time.time()
 counter = 0
@@ -28,9 +28,9 @@ while counter < args["numframes"]:
         # write flipped frame
         out.write(frame)
 
-        cv2.imshow("frame", frame)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+        #cv2.imshow("frame", frame)
+        #if cv2.waitKey(1) & 0xFF == ord('q'):
+        #    break
         counter += 1
     else:
         break
