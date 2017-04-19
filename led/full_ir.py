@@ -1,5 +1,6 @@
 import led
 import time
+import argparse
 
 print "Full IR LED Demo by Dennis Goldschmidt"
 
