@@ -4,7 +4,7 @@ import time
 print "BrightPI Demo by Pierre Martel"
 
 try:
-    light = BrightPILed.BrightPI(1)
+    light = led.BrightPI(1)
     light.Reset();
     light.Led_1_On();
     time.sleep(0.5);
