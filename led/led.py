@@ -51,7 +51,7 @@ class BrightPI:
 
     def Off(self, address):
         try:
-            mask = address;
+            mask = ~address;
             result = self.readState(self.AddressControl) & mask;
             self.bus.write_byte_data(self.BrighPiAddress,self.AddressControl,result);
         except IOError as io:
