@@ -40,7 +40,7 @@ while counter < args["numframes"]:
 		cv2.imshow("Frame", frame)
 		key = cv2.waitKey(1) & 0xFF
         counter += 1
-        
+
 # End time
 end = time.time()
 
