@@ -1,4 +1,4 @@
-import BrightPILed
+import led
 import time
 
 print "BrightPI Demo by Pierre Martel"
@@ -25,9 +25,9 @@ try:
     light.Led_All_On();
     time.sleep(0.5);
     for x in range(0, 15):
-        light.Led_All_Brightness(x);   
+        light.Led_All_Brightness(x);
         time.sleep(0.1);
     light.Led_All_Off();
 except IOError as io:
     print ("I/O Error ({0})".format(io));
-    print " ex: sudo python test1.py"
+    print " ex: sudo python demo.py"
