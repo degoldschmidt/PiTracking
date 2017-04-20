@@ -29,10 +29,10 @@ try:
     light = led.BrightPI(1)
     light.Reset()
     light.On(IR1)
-    light.On(IR2)
-    light.On(IR3)
-    light.On(IR4)
-
+    #light.On(IR2)
+    #light.On(IR3)
+    #light.On(IR4)
+"""
     for i in range(32):
         print("Brightness level ->", i)
         light.setBrightness(IR1, i)
@@ -40,7 +40,7 @@ try:
         light.setBrightness(IR3, i)
         light.setBrightness(IR4, i)
         time.sleep(1)
-
+"""
     while True:
         #blink(light, args["freq"])
         pass
