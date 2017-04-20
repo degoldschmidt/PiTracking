@@ -7,6 +7,7 @@ print "Full IR LED Demo by Dennis Goldschmidt"
 ap = argparse.ArgumentParser()
 ap.add_argument("-f", "--freq", type=int, default=1,
 	help="Frequency of blinking")
+ap.add_argument("-ir", "--ir", nargs='*', help="IR Channels to use")
 args = vars(ap.parse_args())
 
 IR1  = 0x01;
@@ -28,7 +29,15 @@ def blink(_led, freq=1):
 try:
     light = led.BrightPI(1)
     light.Reset()
-    light.On(IR1)
+    for arg in args["ir"]:
+        if arg = 1:
+            light.On(IR1)
+        if arg = 2:
+            light.On(IR2)
+        if arg = 3:
+            light.On(IR3)
+        if arg = 4:
+            light.On(IR4)
     #light.On(IR2)
     #light.On(IR3)
     #light.On(IR4)
