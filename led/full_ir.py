@@ -17,13 +17,15 @@ def blink(_led, freq=1):
 
 try:
     light = led.BrightPI(1)
-    light.Reset();
+    light.Reset()
+    light.Led_All_Off()
     light.On(light.IR1)
     light.On(light.IR2)
     light.On(light.IR3)
     light.On(light.IR4)
 
     for i in range(32):
+        print("Brightness level ->", i)
         light.setBrightness(light.IR1, i)
         light.setBrightness(light.IR2, i)
         light.setBrightness(light.IR3, i)
