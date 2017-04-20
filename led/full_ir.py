@@ -1,8 +1,8 @@
-import led
+#import led
 import time
 import argparse
 
-print "Full IR LED Demo by Dennis Goldschmidt"
+print("Full IR LED Demo by Dennis Goldschmidt")
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-f", "--freq", type=int, default=1,
@@ -20,28 +20,27 @@ LED4 = 0x07;
 IR4  = 0x08;
 AddressAllLed  = 0x09;
 
+"""
 def blink(_led, freq=1):
     time.sleep(0.5/freq)
     _led.On(_led.IR1)
     time.sleep(0.5/freq)
     _led.Off(_led.IR1)
+"""
 
 try:
     light = led.BrightPI(1)
     light.Reset()
     if args["ir"] is not None:
         for arg in args["ir"]:
-            if arg == 1:
+            if arg == '1':
                 light.On(IR1)
-            if arg == 2:
+            if arg == '2':
                 light.On(IR2)
-            if arg == 3:
+            if arg == '3':
                 light.On(IR3)
-            if arg == 4:
+            if arg == '4':
                 light.On(IR4)
-    #light.On(IR2)
-    #light.On(IR3)
-    #light.On(IR4)
     """
     for i in range(32):
         print("Brightness level ->", i)
@@ -56,5 +55,5 @@ try:
         pass
 
 except IOError as io:
-    print ("I/O Error ({0})".format(io));
-    print " ex: sudo python demo.py"
+    print ("I/O Error ({0})".format(io))
+    print (" ex: sudo python demo.py")
