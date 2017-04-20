@@ -24,7 +24,10 @@ try:
     light.On(light.IR4)
 
     for i in range(32):
-        light.Led_All_Brightness(i)
+        light.setBrightness(light.IR1, i)
+        light.setBrightness(light.IR2, i)
+        light.setBrightness(light.IR3, i)
+        light.setBrightness(light.IR4, i)
         time.sleep(1)
 
     while True:
