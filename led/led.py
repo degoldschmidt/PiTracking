@@ -40,6 +40,8 @@ class BrightPI:
     def On(self, address):
         try:
             mask = address;
+            print("Switch on")
+            print(mask)
             result = self.readState(self.AddressControl) | mask;
             self.bus.write_byte_data(self.BrighPiAddress,self.AddressControl,result);
         except IOError as io:

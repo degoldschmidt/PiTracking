@@ -18,7 +18,6 @@ def blink(_led, freq=1):
 try:
     light = led.BrightPI(1)
     light.Reset()
-    light.Led_All_Off()
     light.On(light.IR1)
     light.On(light.IR2)
     light.On(light.IR3)
