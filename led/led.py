@@ -39,11 +39,12 @@ class BrightPI:
 
     def On(self, address):
         try:
-            mask = address;
+            mask = 0x06;
             print("Switch on")
             print(mask)
-            result = self.readState(self.AddressControl) | mask;
-            self.bus.write_byte_data(self.BrighPiAddress,self.AddressControl,result);
+            result = self.readState(self.AddressControl) | mask
+            print(result)
+            self.bus.write_byte_data(self.BrighPiAddress,self.AddressControl,result)
         except IOError as io:
             print ("Led 1 Activation IOError : {0}".format(io))
         except TypeError as te:
@@ -83,6 +84,18 @@ class BrightPI:
             print ("All Led Brightness TypeError : {0}".format(te))
         except ValueError as ve:
             print ("All Led Brightness ValueError : {0}".format(ve))
+
+    def IR_All_On(self):
+        try:
+            mask = 0xa5;
+            result = self.readState(self.AddressControl) | mask;
+            self.bus.write_byte_data(self.BrighPiAddress,self.AddressControl,result);
+        except IOError as io:
+            print ("All Led On Brightness IOError : {0}".format(io))
+        except TypeError as te:
+            print ("All Led On Brightness TypeError : {0}".format(te))
+        except ValueError as ve:
+            print ("All Led On Brightness ValueError : {0}".format(ve))
 
     def Led_All_On(self):
         try:

@@ -31,16 +31,7 @@ def blink(_led, freq=1):
 try:
     light = led.BrightPI(1)
     light.Reset()
-    if args["ir"] is not None:
-        for arg in args["ir"]:
-            if arg == '1':
-                light.On(IR1)
-            if arg == '2':
-                light.On(IR2)
-            if arg == '3':
-                light.On(IR3)
-            if arg == '4':
-                light.On(IR4)
+    light.IR_All_On()
     """
     for i in range(32):
         print("Brightness level ->", i)
