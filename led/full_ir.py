@@ -9,6 +9,16 @@ ap.add_argument("-f", "--freq", type=int, default=1,
 	help="Frequency of blinking")
 args = vars(ap.parse_args())
 
+IR1  = 0x01;
+LED1 = 0x02;
+IR2  = 0x03;
+LED2 = 0x04;
+LED3 = 0x05;
+IR3  = 0x06;
+LED4 = 0x07;
+IR4  = 0x08;
+AddressAllLed  = 0x09;
+
 def blink(_led, freq=1):
     time.sleep(0.5/freq)
     _led.On(_led.IR1)
@@ -18,17 +28,17 @@ def blink(_led, freq=1):
 try:
     light = led.BrightPI(1)
     light.Reset()
-    light.On(light.IR1)
-    light.On(light.IR2)
-    light.On(light.IR3)
-    light.On(light.IR4)
+    light.On(IR1)
+    light.On(IR2)
+    light.On(IR3)
+    light.On(IR4)
 
     for i in range(32):
         print("Brightness level ->", i)
-        light.setBrightness(light.IR1, i)
-        light.setBrightness(light.IR2, i)
-        light.setBrightness(light.IR3, i)
-        light.setBrightness(light.IR4, i)
+        light.setBrightness(IR1, i)
+        light.setBrightness(IR2, i)
+        light.setBrightness(IR3, i)
+        light.setBrightness(IR4, i)
         time.sleep(1)
 
     while True:
