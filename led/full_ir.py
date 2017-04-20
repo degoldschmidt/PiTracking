@@ -18,9 +18,18 @@ def blink(_led, freq=1):
 try:
     light = led.BrightPI(1)
     light.Reset();
+    light.On(light.IR1)
+    light.On(light.IR2)
+    light.On(light.IR3)
+    light.On(light.IR4)
+
+    for i in range(32):
+        light.Led_All_Brightness(i)
+        time.sleep(1)
 
     while True:
-        blink(light, args["freq"])
+        #blink(light, args["freq"])
+        pass
 
 except IOError as io:
     print ("I/O Error ({0})".format(io));
